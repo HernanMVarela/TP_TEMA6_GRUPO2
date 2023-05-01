@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-may-2023 19:05:45 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="frgp.utn.edu.ar.entidad.Biblioteca" table="BIBLIOTECA">
+        <id name="id" type="java.lang.String">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="libro" type="java.lang.String">
+            <column name="LIBRO" />
+        </property>
+        <property name="fechadealta" type="java.lang.String">
+            <column name="FECHADEALTA" />
+        </property>
+        <property name="estado" type="java.lang.String">
+            <column name="ESTADO" />
+        </property>
+    </class>
+</hibernate-mapping>
