@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,31 +13,31 @@ import javax.persistence.Table;
 @Table(name="Users")
 public class Autor implements Serializable {
 
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column
-	private String id;
+	@Column(name="idAutor")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String idAutor;
 	
-	@Column
+	@Column(name="nombre")
 	private String nombre;
 	
-	@Column
+	@Column(name="apellido")
 	private String apellido;
 	
-	@Column
+	@Column(name="nacionalidad")
 	private String nacionalidad;
 	
-	@Column
+	@Column(name="email")
 	private String email;
 
 	public String getId() {
-		return id;
+		return idAutor;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.idAutor = id;
 	}
 
 	public String getNombre() {
@@ -72,9 +74,7 @@ public class Autor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Autor [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", nacionalidad=" + nacionalidad
+		return "Autor [id=" + idAutor + ", nombre=" + nombre + ", apellido=" + apellido + ", nacionalidad=" + nacionalidad
 				+ ", email=" + email + "]";
-	}
-		
-	
+	}	
 }

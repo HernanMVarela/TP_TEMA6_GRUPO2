@@ -1,5 +1,6 @@
 package frgp.utn.edu.ar.entidad;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,21 +12,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity (name="libros")
-public class Libro {
+public class Libro implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="ISBN")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ISBN;
-	@Column
+	
+	@Column(name="titulo")
 	private String titulo;
-	@Column
-	private Date fecha_lanzamiento;
-	@Column
+	
+	@Column(name="fecha_lanzamiento")
+	private Date fechaLanzamiento;
+	
+	@Column(name="idioma")
 	private String idioma;
-	@Column
-	private int cant_paginas;
-	@Column
+	
+	@Column(name="cant_paginas")
+	private int cantPaginas;
+	
+	@Column(name="descripcion")
 	private String descripcion;
 	
 	// Pendiente completar relacion 1aN 
@@ -40,9 +48,9 @@ public class Libro {
 				 String descripcion, Autor autor) {
 		this.ISBN = ISBN;
         this.titulo = titulo;
-        this.fecha_lanzamiento = fecha_lanzamiento;
+        this.fechaLanzamiento = fecha_lanzamiento;
         this.idioma = idioma;
-        this.cant_paginas = cant_paginas;
+        this.cantPaginas = cant_paginas;
         this.descripcion = descripcion;
         this.autor = autor;
     }
@@ -80,11 +88,11 @@ public class Libro {
 	}
 
 	public Date getFecha_lanzamiento() {
-		return fecha_lanzamiento;
+		return fechaLanzamiento;
 	}
 
 	public void setFecha_lanzamiento(Date fecha_lanzamiento) {
-		this.fecha_lanzamiento = fecha_lanzamiento;
+		this.fechaLanzamiento = fecha_lanzamiento;
 	}
 
 	public String getIdioma() {
@@ -96,11 +104,11 @@ public class Libro {
 	}
 
 	public int getCant_paginas() {
-		return cant_paginas;
+		return cantPaginas;
 	}
 
 	public void setCant_paginas(int cant_paginas) {
-		this.cant_paginas = cant_paginas;
+		this.cantPaginas = cant_paginas;
 	}
 
 	public String getDescripcion() {
@@ -118,7 +126,7 @@ public class Libro {
 	public void setAutor(Autor autor) {
 		this.autor = autor;
 	}
-/*
+	/*
 	public Set<Genero> getGeneros() {
 		return generos;
 	}
@@ -126,6 +134,5 @@ public class Libro {
 	public void setGeneros(Set<Genero> generos) {
 		this.generos = generos;
 	}
-*/	
-	
+	*/		
 }

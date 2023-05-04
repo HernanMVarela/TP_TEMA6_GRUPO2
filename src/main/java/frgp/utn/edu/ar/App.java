@@ -7,11 +7,6 @@ import frgp.utn.edu.ar.entidad.Autor;
 import frgp.utn.edu.ar.entidad.Biblioteca;
 import frgp.utn.edu.ar.entidad.Libro;
 
-
-/**
- * Hello world!
- *
- */
 public class App 
 {
     public static void main( String[] args )

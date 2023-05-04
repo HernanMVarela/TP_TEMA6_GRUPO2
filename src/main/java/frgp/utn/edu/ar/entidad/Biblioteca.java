@@ -12,21 +12,24 @@ import javax.persistence.Table;
 
 import org.hibernate.Session;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name="Biblioteca")
-public class Biblioteca {
+public class Biblioteca implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
+	@Column(name="fechaAlta")
 	private Date fechadealta = new Date(System.currentTimeMillis());
 	
-	@Column
+	@Column(name="estado")
 	private String estado;
 	
 	@ManyToOne(cascade= {CascadeType.ALL})
@@ -69,6 +72,14 @@ public class Biblioteca {
 		this.estado = estado;
 	}
 
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
+	}	
+
 	public void guardarEnBD(Session SES) {
 		SES.save(this);
 	}
@@ -89,14 +100,5 @@ public class Biblioteca {
 	public String toString() {
 		return "Registro de Biblioteca: [ id = " + id + ", ISBN = " + libro.getISBN() + ", Fecha de Alta = " 
 	+ fechadealta.toString() + ", Estado = " + estado + "]";
-	}
-
-	public Libro getLibro() {
-		return libro;
-	}
-
-	public void setLibro(Libro libro) {
-		this.libro = libro;
-	}
-	
+	}	
 }
