@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class Genero implements Serializable{
-
 	
 	private static final long serialVersionUID = 1L;
 

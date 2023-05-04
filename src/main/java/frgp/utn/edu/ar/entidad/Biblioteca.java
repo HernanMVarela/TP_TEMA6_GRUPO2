@@ -22,9 +22,9 @@ public class Biblioteca implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id")
+	@Column(name="id_biblioteca")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idBiblioteca;
 	
 	@Column(name="fechaAlta")
 	private Date fechadealta = new Date(System.currentTimeMillis());
@@ -48,12 +48,12 @@ public class Biblioteca implements Serializable{
 		this.estado = estado;
 	}
 
-	public int getId() {
-		return id;
+	public int getIdBiblioteca() {
+		return idBiblioteca;
 	}
 	
-	public void setId(int id) {
-		this.id = id;
+	public void setIdBiblioteca(int idBiblioteca) {
+		this.idBiblioteca = idBiblioteca;
 	}
 
 	public Date getFechadealta() {
