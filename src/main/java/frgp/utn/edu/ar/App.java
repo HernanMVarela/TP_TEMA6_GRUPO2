@@ -5,6 +5,8 @@ import org.hibernate.Session;
 import frgp.utn.edu.ar.dao.ConfigHibernate;
 import frgp.utn.edu.ar.entidad.Autor;
 import frgp.utn.edu.ar.entidad.Biblioteca;
+import frgp.utn.edu.ar.entidad.Libro;
+
 
 /**
  * Hello world!
@@ -21,22 +23,24 @@ public class App
     	autor.setEmail("sdsd");
     	autor.setNacionalidad("Argentino");
     	autor.setId("1");
+    	
+    	Libro Lib = new Libro();
+    	    	
+    	Biblioteca Biblio = new Biblioteca(Lib,"Prestado");
         
-        ConfigHibernate ch = new ConfigHibernate();
+    	ConfigHibernate ch = new ConfigHibernate();
         Session session= ch.abrirConexion();
 		
 	    session.beginTransaction();
-	    session.save(autor);
-	    
-	    Biblioteca libroFisico = new Biblioteca(7,"Malo");
-	    session.save(libroFisico);
-	    System.out.println(libroFisico.toString());
-	    libroFisico= new Biblioteca(3,"De 10");
-	    session.save(libroFisico);
-	    System.out.println(libroFisico.toString());
-	    
-	    session.getTransaction().commit();    
-		ch.cerrarSession();
+	    //session.save(Lib);
+		
+		Biblio.guardarEnBD(session);
+		Lib = new Libro();
+		Biblio = new Biblioteca(Lib,"En Biblioteca");
+		Biblio.guardarEnBD(session);
+		//Biblio.cargarDeBD(session, 1);
         
+		session.getTransaction().commit();
+		ch.cerrarSession();
     }
 }

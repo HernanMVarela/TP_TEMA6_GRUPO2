@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 03-may-2023 20:26:06 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="frgp.utn.edu.ar.entidad.Libro" table="LIBRO">
+        <id name="idioma" type="java.lang.String">
+            <column name="IDIOMA" />
+            <generator class="assigned" />
+        </id>
+        <property name="ISBN" type="int">
+            <column name="ISBN" />
+            <generator class="identity" />
+        </property>
+        <property name="titulo" type="java.lang.String">
+            <column name="TITULO" />
+        </property>
+        <property name="fecha_lanzamiento" type="java.sql.Date">
+            <column name="FECHA_LANZAMIENTO" />
+        </property>
+        <property name="cant_paginas" type="int">
+            <column name="CANT_PAGINAS" />
+        </property>
+        <property name="descripcion" type="java.lang.String">
+            <column name="DESCRIPCION" />
+        </property>
+        <many-to-one name="autor" class="frgp.utn.edu.ar.entidad.Autor" fetch="join">
+            <column name="AUTOR" />
+        </many-to-one>
+        <set name="generos" table="GENERO" inverse="false" lazy="true">
+            <key>
+                <column name="IDIOMA" />
+            </key>
+            <one-to-many class="frgp.utn.edu.ar.entidad.Genero" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,11 +1,17 @@
 package frgp.utn.edu.ar.entidad;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.Session;
+
 import java.sql.Date;
 
 @Entity
@@ -18,45 +24,42 @@ public class Biblioteca {
 	private int id;
 	
 	@Column
-	private long libro;
-	
-	@Column
 	private Date fechadealta = new Date(System.currentTimeMillis());
 	
 	@Column
 	private String estado;
 	
+	@ManyToOne(cascade= {CascadeType.ALL})
+	@JoinColumn(name="ISBN")
+	private Libro libro;
+
 	public Biblioteca() {
 		super();
-		this.libro = 0;
+		this.libro = new Libro();
 		this.estado = "Desconocido";
 	}
 	
-	public Biblioteca(long libro,String estado) {
+	public Biblioteca(Libro nuevo,String estado) {
 		super();
-		this.libro = libro;
+		this.libro = nuevo;
 		this.estado = estado;
 	}
 
 	public int getId() {
 		return id;
 	}
-
-	public long getLibro() {
-		return libro;
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public void setLibro(long libro) {
-		this.libro = libro;
-	}
-
-	/*public String getFechadealta() {
+	public Date getFechadealta() {
 		return fechadealta;
 	}
 
-	public void setFechadealta(long fechadealta) {
+	public void setFechadealta(Date fechadealta) {
 		this.fechadealta = fechadealta;
-	}*/
+	}
 
 	public String getEstado() {
 		return estado;
@@ -66,10 +69,34 @@ public class Biblioteca {
 		this.estado = estado;
 	}
 
+	public void guardarEnBD(Session SES) {
+		SES.save(this);
+	}
+	
+	public void updateEnBD(Session SES) {
+		SES.save(this);
+	}
+	
+	/*public void cargarDeBD(Session SES, int idCarga) {
+		Biblioteca Bib = (Biblioteca)SES.get(Biblioteca.class,idCarga);
+		//setId(Bib.getId());
+		this.ISBN = Bib.getISBN();
+		this.estado = Bib.getEstado();
+		this.fechadealta = Bib.getFechadealta();
+	}*/
+	
 	@Override
 	public String toString() {
-		return "Registro de Biblioteca: [ id = " + id + ", Libro = " + libro + ", Fecha de Alta = " 
+		return "Registro de Biblioteca: [ id = " + id + ", ISBN = " + libro.getISBN() + ", Fecha de Alta = " 
 	+ fechadealta.toString() + ", Estado = " + estado + "]";
+	}
+
+	public Libro getLibro() {
+		return libro;
+	}
+
+	public void setLibro(Libro libro) {
+		this.libro = libro;
 	}
 	
 }
