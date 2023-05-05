@@ -32,7 +32,8 @@ public class NegocioLibro implements INegocioLibro {
     					"robert.martin@mail.com"
     					)
     			);
-    	
+    	libro1.getGeneros().add(NegGen.obtenerLista().get(0));
+    	libro1.getGeneros().add(NegGen.obtenerLista().get(1));
     	agregarLibro(libro1);
 	}
 
