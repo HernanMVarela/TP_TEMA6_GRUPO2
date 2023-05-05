@@ -98,7 +98,7 @@ public class Biblioteca implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Registro de Biblioteca: [ id = " + id + ", ISBN = " + libro.getISBN() + ", Fecha de Alta = " 
+		return "Registro de Biblioteca: [ id = " + idBiblioteca + ", ISBN = " + libro.getISBN() + ", Fecha de Alta = " 
 	+ fechadealta.toString() + ", Estado = " + estado + "]";
 	}	
 }

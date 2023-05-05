@@ -3,14 +3,13 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 03-may-2023 20:26:06 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="frgp.utn.edu.ar.entidad.Libro" table="LIBRO">
+    <class name="frgp.utn.edu.ar.entidad.Libro" table="LIBROS">
         <id name="idioma" type="java.lang.String">
             <column name="IDIOMA" />
             <generator class="assigned" />
         </id>
-        <property name="ISBN" type="int">
+        <property name="ISBN" type="java.lang.String">
             <column name="ISBN" />
-            <generator class="identity" />
         </property>
         <property name="titulo" type="java.lang.String">
             <column name="TITULO" />
@@ -25,7 +24,7 @@
             <column name="DESCRIPCION" />
         </property>
         <many-to-one name="autor" class="frgp.utn.edu.ar.entidad.Autor" fetch="join">
-            <column name="AUTOR" />
+            <column name="AUTORES" />
         </many-to-one>
         <set name="generos" table="GENERO" inverse="false" lazy="true">
             <key>

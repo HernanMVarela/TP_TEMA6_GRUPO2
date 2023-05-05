@@ -6,17 +6,20 @@ import frgp.utn.edu.ar.dao.ConfigHibernate;
 import frgp.utn.edu.ar.entidad.Autor;
 import frgp.utn.edu.ar.entidad.Biblioteca;
 import frgp.utn.edu.ar.entidad.Libro;
+import frgp.utn.edu.ar.entidad.Nacionalidad;
+import frgp.utn.edu.ar.negocio.NegocioLibro;
+import frgp.utn.edu.ar.negocioInterfaz.INegocioLibro;
 
 public class App 
 {
     public static void main( String[] args )
     {
-        
+        /*
     	Autor autor = new Autor();
     	autor.setNombre("Pepe");
     	autor.setApellido("123");
     	autor.setEmail("sdsd");
-    	autor.setNacionalidad("Argentino");
+    	autor.setNacionalidad(new Nacionalidad("Argentina"));
     	autor.setId("1");
     	
     	Libro Lib = new Libro();
@@ -37,5 +40,10 @@ public class App
         
 		session.getTransaction().commit();
 		ch.cerrarSession();
+		*/
+    	INegocioLibro NegLib = new NegocioLibro();
+    	NegLib.cargarLista();
+    	
+    	System.out.println(NegLib.leerUno("9780132350884").toString());
     }
 }

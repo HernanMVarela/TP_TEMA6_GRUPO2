@@ -3,45 +3,44 @@ package frgp.utn.edu.ar.entidad;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="Users")
 public class Autor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_autor")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String idAutor;
-	
-	@Column(name="nombre")
+	private int idAutor;
 	private String nombre;
-	
-	@Column(name="apellido")
 	private String apellido;
-	
-	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_nacionalidad")
-	@Column(name="nacionalidad")
-	private String nacionalidad;
-	
-	@Column(name="email")
 	private String email;
-
-	public String getId() {
+	
+	@ManyToOne(cascade= {CascadeType.ALL})
+	@JoinColumn(name="id")
+	private Nacionalidad nacionalidad;
+	
+	public Autor() {}
+	
+	public Autor(String nombre, String apellido, Nacionalidad nacionalidad, String email) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.nacionalidad = nacionalidad;
+		this.email = email;
+	}
+	
+	
+	public int getId() {
 		return idAutor;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.idAutor = id;
 	}
 
@@ -61,11 +60,11 @@ public class Autor implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public String getNacionalidad() {
+	public Nacionalidad getNacionalidad() {
 		return nacionalidad;
 	}
 
-	public void setNacionalidad(String nacionalidad) {
+	public void setNacionalidad(Nacionalidad nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
 
@@ -79,7 +78,6 @@ public class Autor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Autor [id=" + idAutor + ", nombre=" + nombre + ", apellido=" + apellido + ", nacionalidad=" + nacionalidad
-				+ ", email=" + email + "]";
-	}	
+		return "ID: " + idAutor + " | Nombre: " + nombre + " " + apellido + " | Nacionalidad: " + nacionalidad.getDescripcion() + " | Correo: " + email;
+	}
 }

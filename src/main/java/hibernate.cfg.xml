@@ -9,11 +9,13 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/BDHibernate?createDatabaseIfNotExist=true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">update</property>
         <property name="show_sql">true</property>
+        
         <mapping class="frgp.utn.edu.ar.entidad.Autor"/>
-        <mapping class="frgp.utn.edu.ar.entidad.Biblioteca"/>
-          <mapping class="frgp.utn.edu.ar.entidad.Libro"/>
+        <mapping class="frgp.utn.edu.ar.entidad.Genero"/>
+        <mapping class="frgp.utn.edu.ar.entidad.Nacionalidad"/>
+        <mapping class="frgp.utn.edu.ar.entidad.Libro"/>
         
     </session-factory>
 </hibernate-configuration>

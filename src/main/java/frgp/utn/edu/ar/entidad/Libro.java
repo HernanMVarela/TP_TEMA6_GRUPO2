@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,56 +16,45 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
-@Entity (name="libros")
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+@Entity
 public class Libro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ISBN")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int ISBN;
-	
-	@Column(name="titulo")
+	private String ISBN;
 	private String titulo;
-	
-	@Column(name="fecha_lanzamiento")
 	private Date fechaLanzamiento;
-	
-	@Column(name="idioma")
 	private String idioma;
-	
-	@Column(name="cant_paginas")
 	private int cantPaginas;
-	
-	@Column(name="descripcion")
 	private String descripcion;
 	
 	@ManyToOne(cascade = { CascadeType.ALL })
-	@JoinColumn(name = "id_autor")
-	@Column(name="autor")
+	@JoinColumn(name = "id_autor",nullable = false)
 	private Autor autor;
 	
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "libro_genero", 
-			joinColumns = { @JoinColumn(name = "ISBN") }, 
+			joinColumns = { @JoinColumn(name = "ISBN_Libro") }, 
 			inverseJoinColumns = { @JoinColumn(name = "id_genero") }
 	)
+	@Fetch (FetchMode.SELECT)
 	private Set<Genero> generos = new HashSet<Genero>();
 	
 	public Libro() {}
 	
-	public Libro(int ISBN, 
+	public Libro(String ISBN, 
 				 String titulo,
 				 Date fecha_lanzamiento, 
 				 String idioma, 
 				 int cantPaginas,
 				 String descripcion, 
-				 Autor autor,
-				 Set<Genero> generos) {
+				 Autor autor) {
 		this.ISBN = ISBN;
         this.titulo = titulo;
         this.fechaLanzamiento = fecha_lanzamiento;
@@ -72,14 +62,13 @@ public class Libro implements Serializable{
         this.cantPaginas = cantPaginas;
         this.descripcion = descripcion;
         this.autor = autor;
-		this.generos = generos;
     }
 
-	/*	
+	
 	@Override
 	public String toString() {
-		return "\n ISBN: " + ISBN + " | Titulo: " + titulo + "\n" +"Descripcion: " + descripcion +" | Lanzamiento: " + fecha_lanzamiento + "\n" +"Idioma: "
-				+ idioma + " | Páginas: " + cant_paginas + " | Generos: " + listaDeGeneros() +"\n" + "Autor: " + autor.toString();
+		return "\nISBN: " + ISBN + " | Titulo: " + titulo + "\n" +"Descripcion: " + descripcion +" | Lanzamiento: " + fechaLanzamiento + "\n" +"Idioma: "
+				+ idioma + " | Páginas: " + cantPaginas + " | Generos: " + listaDeGeneros() +"\n" + "Autor: " + autor.toString();
 	}
 
 
@@ -90,13 +79,13 @@ public class Libro implements Serializable{
 		}
 		return listaGeneros;
 	}
-	*/
 	
-	public long getISBN() {
+	
+	public String getISBN() {
 		return ISBN;
 	}
 
-	public void setISBN(int iSBN) {
+	public void setISBN(String iSBN) {
 		ISBN = iSBN;
 	}
 
