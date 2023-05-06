@@ -7,7 +7,9 @@ import frgp.utn.edu.ar.entidad.Autor;
 import frgp.utn.edu.ar.entidad.Biblioteca;
 import frgp.utn.edu.ar.entidad.Libro;
 import frgp.utn.edu.ar.entidad.Nacionalidad;
+import frgp.utn.edu.ar.negocio.NegocioBiblioteca;
 import frgp.utn.edu.ar.negocio.NegocioLibro;
+import frgp.utn.edu.ar.negocioInterfaz.INegocioBiblioteca;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioLibro;
 
 public class App 
@@ -40,10 +42,13 @@ public class App
         
 		session.getTransaction().commit();
 		ch.cerrarSession();
+		
+		INegocioLibro NegLib = new NegocioLibro();
+    	NegLib.cargarLista();
 		*/
-    	INegocioLibro NegLib = new NegocioLibro();
+    	INegocioBiblioteca NegLib = new NegocioBiblioteca();
     	NegLib.cargarLista();
     	
-    	System.out.println(NegLib.leerUno("9780132350884").toString());
+    	System.out.println(NegLib.leerUno(1).toString());
     }
 }
