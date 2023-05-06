@@ -38,8 +38,28 @@ public class NegocioBiblioteca implements INegocioBiblioteca {
     	
     	libro1.getGeneros().add(NegGen.obtenerLista().get(0));
     	libro1.getGeneros().add(NegGen.obtenerLista().get(1));
+    	
+    	Libro libro2 = new Libro(
+    			"9786075387611",
+    			"Aprende A Programar En Java", Date.valueOf("2022-01-01"), "Español", 600,
+    			"Dirigida a todos aquellos que quieren comenzar a programar", 
+    			new Autor(
+    					"Osvaldo Cairo ",
+    					"Battistutti",
+    					NegNac.obtenerLista().get(1),
+    					"robert.martin@mail.com"
+    					)
+    			);
+    	
+    	
+    	libro2.getGeneros().add(NegGen.obtenerLista().get(2));
+    	libro2.getGeneros().add(NegGen.obtenerLista().get(1));
+    	
+    	
     	Biblioteca biblio1 = new Biblioteca(libro1,"Prestado");
     	agegarBiblioteca(biblio1);
+    	Biblioteca biblio2 = new Biblioteca(libro2,"En biblioteca");
+    	agegarBiblioteca(biblio2);
     
 	}
 
@@ -52,21 +72,24 @@ public class NegocioBiblioteca implements INegocioBiblioteca {
 	//TO DO
 	@Override
 	public Biblioteca leerUno(int id) {
-		return DaoHibernateBiblioteca.ReadOne(id); /// Lee un registro de la tabla libros
-		
+		return DaoHibernateBiblioteca.ReadOne(id); /// Lee un registro de la tabla biblioteca
 	}
 
 	//TO DO
 	@Override
 	public List<Biblioteca> leerTodo() {
-		return null;
+		return DaoHibernateBiblioteca.ReadAll(); /// Lee todos los registros de la tabla biblioteca
 	}
 
 	//TO DO
 	@Override
-	public void modificarBiblioteca(Biblioteca biblio) {}
+	public void modificarBiblioteca(Biblioteca biblio) {
+		DaoHibernateBiblioteca.UpdateBiblioteca(biblio); /// Modifica un libro en la biblioteca
+	}
 
 	//TO DO
 	@Override
-	public void deleteBiblioteca(Biblioteca biblio) {}
+	public void deleteBiblioteca(Biblioteca biblio) {
+		 DaoHibernateBiblioteca.DeleteBiblioteca(biblio); /// Lee todos los registros de la tabla libros
+	}
 }

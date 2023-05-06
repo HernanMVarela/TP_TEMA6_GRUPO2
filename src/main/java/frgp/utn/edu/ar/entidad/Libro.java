@@ -67,8 +67,8 @@ public class Libro implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "\nISBN: " + ISBN + " | Titulo: " + titulo + "\n" +"Descripcion: " + descripcion +" | Lanzamiento: " + fechaLanzamiento + "\n" +"Idioma: "
-				+ idioma + " | Páginas: " + cantPaginas + " | Generos: " + listaDeGeneros() +"\n" + "Autor: " + autor.toString();
+		return "\n\tISBN: " + ISBN + " | Titulo: " + titulo + "\n\t" +"Descripcion: " + descripcion +" | Lanzamiento: " + fechaLanzamiento + "\n\t" +"Idioma: "
+				+ idioma + " | Páginas: " + cantPaginas + " | Generos: " + listaDeGeneros() +"\n\t" + "Autor: " + autor.toString();
 	}
 
 

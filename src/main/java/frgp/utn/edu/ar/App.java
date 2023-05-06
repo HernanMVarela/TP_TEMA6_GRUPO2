@@ -1,5 +1,7 @@
 package frgp.utn.edu.ar;
 
+import java.sql.Date;
+
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.dao.ConfigHibernate;
@@ -8,47 +10,56 @@ import frgp.utn.edu.ar.entidad.Biblioteca;
 import frgp.utn.edu.ar.entidad.Libro;
 import frgp.utn.edu.ar.entidad.Nacionalidad;
 import frgp.utn.edu.ar.negocio.NegocioBiblioteca;
+import frgp.utn.edu.ar.negocio.NegocioGenero;
 import frgp.utn.edu.ar.negocio.NegocioLibro;
+import frgp.utn.edu.ar.negocio.NegocioNacionalidad;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioBiblioteca;
+import frgp.utn.edu.ar.negocioInterfaz.INegocioGenero;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioLibro;
+import frgp.utn.edu.ar.negocioInterfaz.INegocioNacionalidad;
 
 public class App 
 {
     public static void main( String[] args )
     {
-        /*
-    	Autor autor = new Autor();
-    	autor.setNombre("Pepe");
-    	autor.setApellido("123");
-    	autor.setEmail("sdsd");
-    	autor.setNacionalidad(new Nacionalidad("Argentina"));
-    	autor.setId("1");
+    	INegocioGenero NegGen = new NegocioGenero();
+    	INegocioNacionalidad NegNac = new NegocioNacionalidad();
     	
-    	Libro Lib = new Libro();
-    	    	
-    	Biblioteca Biblio = new Biblioteca(Lib,"Prestado");
-        
-    	ConfigHibernate ch = new ConfigHibernate();
-        Session session= ch.abrirConexion();
-		
-	    session.beginTransaction();
-	    //session.save(Lib);
-		
-		Biblio.guardarEnBD(session);
-		Lib = new Libro();
-		Biblio = new Biblioteca(Lib,"En Biblioteca");
-		Biblio.guardarEnBD(session);
-		//Biblio.cargarDeBD(session, 1);
-        
-		session.getTransaction().commit();
-		ch.cerrarSession();
-		
+    	NegGen.cargarLista(); /// Carga lista de generos con valores definidos
+    	NegNac.cargarLista(); /// Carga lista de nacionalidad con valores definidos
+    	
+		/// CONTINUAR CREACION DE LIBROS
+    	Libro libro1 = new Libro(
+    			"9780132350884",
+    			"Clean Code Test Update", Date.valueOf("2008-01-01"), "Ingles", 464,
+    			"Un libro sobre programacion", 
+    			new Autor(
+    					"Robert C.",
+    					"Martin",
+    					NegNac.obtenerLista().get(0),
+    					"robert.martin@mail.com"
+    					)
+    			);
+    	
+    	libro1.getGeneros().add(NegGen.obtenerLista().get(0));
+    	libro1.getGeneros().add(NegGen.obtenerLista().get(1));
+    	
+        /*
 		INegocioLibro NegLib = new NegocioLibro();
-    	NegLib.cargarLista();
+    	NegLib.cargarLista();y
 		*/
+    	
     	INegocioBiblioteca NegLib = new NegocioBiblioteca();
     	NegLib.cargarLista();
     	
-    	System.out.println(NegLib.leerUno(1).toString());
+    	System.out.println(NegLib.leerTodo().toString());
+    	
+    	
+    	Biblioteca biblio2 = new Biblioteca(libro1,"En biblioteca");
+    	biblio2.setIdBiblioteca(15);
+    	
+    	NegLib.modificarBiblioteca(biblio2);
+    	
+    	System.out.println(NegLib.leerTodo().toString());
     }
 }
