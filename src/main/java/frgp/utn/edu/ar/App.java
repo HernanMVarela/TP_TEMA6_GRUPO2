@@ -51,15 +51,16 @@ public class App
     	
     	INegocioBiblioteca NegLib = new NegocioBiblioteca();
     	NegLib.cargarLista();
-    	
+    	System.out.println("\n \n----------------- DATOS PREVIOS A UPDATE ---------------------------");
     	System.out.println(NegLib.leerTodo().toString());
     	
     	
-    	Biblioteca biblio2 = new Biblioteca(libro1,"En biblioteca");
+    	Biblioteca biblio2 = new Biblioteca(libro1,"Prestado");
     	biblio2.setIdBiblioteca(15);
     	
     	NegLib.modificarBiblioteca(biblio2);
-    	
+    	System.out.println("\n\n ----------------- DATOS CON EL UPDATE ---------------------------");
     	System.out.println(NegLib.leerTodo().toString());
+    	
     }
 }
