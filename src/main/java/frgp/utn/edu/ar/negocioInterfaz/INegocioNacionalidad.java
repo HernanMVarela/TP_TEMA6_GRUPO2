@@ -7,4 +7,5 @@ import frgp.utn.edu.ar.entidad.Nacionalidad;
 public interface INegocioNacionalidad {
 	public void cargarLista();
 	public List<Nacionalidad> obtenerLista();
+	public Nacionalidad getNacionalidad(String Nac);
 }

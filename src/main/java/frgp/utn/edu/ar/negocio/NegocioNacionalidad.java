@@ -1,6 +1,7 @@
 package frgp.utn.edu.ar.negocio;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import frgp.utn.edu.ar.entidad.Nacionalidad;
@@ -22,5 +23,17 @@ private List<Nacionalidad> lista = new ArrayList<Nacionalidad>();
 		}else {
 			return null;
 		}
+	}
+	
+	public Nacionalidad getNacionalidad(String Nac) {
+		Iterator<Nacionalidad> ite = lista.iterator();
+		
+		while(ite.hasNext()) {
+			Nacionalidad Nacio = ite.next();
+			if(Nacio.getDescripcion().equalsIgnoreCase(Nac)) {
+				return Nacio;
+			}
+		}
+		return null;
 	}
 }

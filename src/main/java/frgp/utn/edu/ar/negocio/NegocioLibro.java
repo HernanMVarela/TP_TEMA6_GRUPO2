@@ -25,7 +25,62 @@ public class NegocioLibro implements INegocioLibro {
     	NegNac.cargarLista(); /// Carga lista de nacionalidad con valores definidos
     	
 		/// CONTINUAR CREACION DE LIBROS
+    	
     	Libro libro1 = new Libro(
+    			"9786075387611",
+    			"Aprende A Programar En Java", Date.valueOf("2022-01-01"), "Español", 600,
+    			"Dirigida a todos aquellos que quieren comenzar a programar", 
+    			new Autor(
+    					"Osvaldo Cairo ",
+    					"Battistutti",
+    					NegNac.getNacionalidad("Uruguay"),
+    					"robert.martin@mail.com"
+    					)
+    			);
+    	libro1.getGeneros().add(NegGen.getGenero("Computacion"));
+    	libro1.getGeneros().add(NegGen.getGenero("Programacion"));
+    	
+		Libro libro2 = new Libro(
+    			"9789504981015",
+    			"El Nudo", Date.valueOf("2015-01-01"), "Español", 400,
+    			"Un libro sobre Historia", 
+    			new Autor(
+    					"Carlos",
+    					"Pagni",
+    					NegNac.getNacionalidad("Uruguay"),
+    					"carlos.pagni@mail.com"
+    					)
+    			);
+		libro2.getGeneros().add(NegGen.getGenero("Historia"));
+    	libro2.getGeneros().add(NegGen.getGenero("Humanidad"));
+		
+		Libro libro3 = new Libro(
+    			"9788491134510",
+    			"Fundamentos de Enfermería", Date.valueOf("2019-01-01"), "Español", 1384,
+    			"Un libro sobre medicina", 
+    			new Autor(
+    					"P.A.",
+    					"Potter",
+    					NegNac.getNacionalidad("Argentina"),
+    					"pa.potter@mail.com"
+    					)
+    			);
+		libro3.getGeneros().add(NegGen.getGenero("Medicina"));
+		
+		Libro libro4 = new Libro(
+    			"9788417347741",
+    			"Estelar", Date.valueOf("2020-01-01"), "Español", 464,
+    			"Un libro sobre ciencia ficción", 
+    			new Autor(
+    					"Brandon",
+    					"Sanderson",
+    					NegNac.getNacionalidad("Estados Unidos"),
+    					"brandon.sanderson@mail.com"
+    					)
+    			);
+		libro4.getGeneros().add(NegGen.getGenero("Ficción"));
+		
+		Libro libro5 = new Libro(
     			"9780132350884",
     			"Clean Code", Date.valueOf("2008-01-01"), "Ingles", 464,
     			"Un libro sobre programacion", 
@@ -36,9 +91,29 @@ public class NegocioLibro implements INegocioLibro {
     					"robert.martin@mail.com"
     					)
     			);
-    	libro1.getGeneros().add(NegGen.obtenerLista().get(0));
-    	libro1.getGeneros().add(NegGen.obtenerLista().get(1));
+    	libro5.getGeneros().add(NegGen.getGenero("Computacion"));
+    	libro5.getGeneros().add(NegGen.getGenero("Programacion"));
+    	
+		Libro libro6 = new Libro(
+    			"9781492056355",
+    			"Fluent Python", Date.valueOf("2022-01-01"), "Ingles", 900,
+    			"Un libro sobre Python", 
+    			new Autor(
+    					"Luciano",
+    					"Ramalho",
+    					NegNac.obtenerLista().get(2),
+    					"luciano.ramalho@mail.com"
+    					)
+    			);
+		libro6.getGeneros().add(NegGen.obtenerLista().get(0));
+		libro6.getGeneros().add(NegGen.obtenerLista().get(1));
+    	
     	agregarLibro(libro1);
+    	agregarLibro(libro2);
+    	agregarLibro(libro3);
+    	agregarLibro(libro4);
+    	agregarLibro(libro5);
+    	agregarLibro(libro6);
 	}
 
 	@Override
@@ -59,20 +134,21 @@ public class NegocioLibro implements INegocioLibro {
 	@Override
 	public void modificarLibro(Libro lib) {
 		DaoHibernateLibro.UpdateLibro(lib); /// Modifica un libro en la base de datos
-		
 	}
 
 	@Override
-	public void borrarLibro(Libro lib) {
-		List<Biblioteca> listaBiblioteca = DaoHibernateBiblioteca.ReadAll();
+	public void borrarLibro(Libro lib) {  /// Borra el libro y los registros de biblioteca asociados
+		List<Biblioteca> listaBiblioteca = DaoHibernateBiblioteca.ReadAll(); /// Lee todos los registros de biblioteca
 		Iterator<Biblioteca> ite = listaBiblioteca.iterator();
 		while(ite.hasNext()) {
 			Biblioteca bib = ite.next();
-			if(bib.getLibro().getISBN().equals(lib.getISBN())) {
+			if(bib.getLibro().getISBN().equals(lib.getISBN())) {  /// Busca el ISBN en el registro
 				INegocioBiblioteca NegBib = new NegocioBiblioteca();
-				NegBib.deleteBiblioteca(bib);
+				NegBib.deleteBiblioteca(bib); /// Borra el registro correspondiente
 			}
 		}
+		lib.getAutor().setNacionalidad(null); /// Se configura nacionalidad del autor en null para evitar borrado en cascada
+		lib.getGeneros().clear(); /// Se borra lista de generos del libro para evitar borrado en cascada
 		DaoHibernateLibro.DeleteLibro(lib);; /// Remueve de la base de datos el libro indicado		
 	}
 

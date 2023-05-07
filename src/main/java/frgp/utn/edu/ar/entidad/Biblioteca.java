@@ -16,34 +16,32 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-@Table(name="Biblioteca")
-public class Biblioteca implements Serializable{
+@Table(name="BIBLIOTECAS")
+public class Biblioteca implements Serializable, Comparable<Biblioteca> {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_biblioteca")
+	@Column(name="ID_BIBLIOTECA")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idBiblioteca;
 	
-	@Column(name="fechaAlta")
+	@Column(name="FECHA_ALTA")
 	private Date fechadealta = new Date(System.currentTimeMillis());
 	
-	@Column(name="estado")
-	private String estado;
+	@Column(name="ESTADO")
+	private EEstadoBiblioteca estado;
 	
 	@ManyToOne(cascade= {CascadeType.ALL})
-	@JoinColumn(name="ISBN")
+	@JoinColumn(name="ISBN",nullable = false)
 	private Libro libro;
 
 	public Biblioteca() {
-		super();
-		this.libro = new Libro();
-		this.estado = "Desconocido";
 	}
 	
-	public Biblioteca(Libro nuevo,String estado) {
+	public Biblioteca(Libro nuevo,EEstadoBiblioteca estado, Date fechadealta) {
 		super();
+		this.fechadealta = fechadealta;
 		this.libro = nuevo;
 		this.estado = estado;
 	}
@@ -64,11 +62,11 @@ public class Biblioteca implements Serializable{
 		this.fechadealta = fechadealta;
 	}
 
-	public String getEstado() {
+	public EEstadoBiblioteca getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EEstadoBiblioteca estado) {
 		this.estado = estado;
 	}
 
@@ -88,21 +86,19 @@ public class Biblioteca implements Serializable{
 		SES.save(this);
 	}
 	
-	/*public void cargarDeBD(Session SES, int idCarga) {
-		Biblioteca Bib = (Biblioteca)SES.get(Biblioteca.class,idCarga);
-		//setId(Bib.getId());
-		this.ISBN = Bib.getISBN();
-		this.estado = Bib.getEstado();
-		this.fechadealta = Bib.getFechadealta();
-	}*/
-	
 	@Override
 	public String toString() {
-		return "\n\nRegistro de Biblioteca: "
+		return "\nRegistro de Biblioteca: "
 				+ "\n Id en biblioteca: "  + idBiblioteca + 
 				"\n Libro: " + libro.toString()
-				+"\n\n Fecha de Alta = " + fechadealta.toString() + ""
-			    + "\n Estado = " + estado +
-	"\n";
+				+"\n Fecha de Alta: " + fechadealta.toString()
+			    + "\n Estado: " + estado;
+	}
+
+	@Override
+	public int compareTo(Biblioteca o) {
+		if(this.idBiblioteca==o.idBiblioteca) {return 0;}
+		else if(this.idBiblioteca>o.idBiblioteca) { return 1;}
+		else { return -1;}
 	}	
 }

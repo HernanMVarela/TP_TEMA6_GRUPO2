@@ -7,4 +7,5 @@ import frgp.utn.edu.ar.entidad.Genero;
 public interface INegocioGenero {
 	public void cargarLista();
 	public List<Genero> obtenerLista();
+	public Genero getGenero(String Gen);
 }

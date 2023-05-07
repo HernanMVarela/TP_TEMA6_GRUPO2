@@ -1,66 +1,60 @@
 package frgp.utn.edu.ar;
 
 import java.sql.Date;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
-import org.hibernate.Session;
-
-import frgp.utn.edu.ar.dao.ConfigHibernate;
-import frgp.utn.edu.ar.entidad.Autor;
 import frgp.utn.edu.ar.entidad.Biblioteca;
-import frgp.utn.edu.ar.entidad.Libro;
-import frgp.utn.edu.ar.entidad.Nacionalidad;
+import frgp.utn.edu.ar.entidad.EEstadoBiblioteca;
 import frgp.utn.edu.ar.negocio.NegocioBiblioteca;
-import frgp.utn.edu.ar.negocio.NegocioGenero;
 import frgp.utn.edu.ar.negocio.NegocioLibro;
-import frgp.utn.edu.ar.negocio.NegocioNacionalidad;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioBiblioteca;
-import frgp.utn.edu.ar.negocioInterfaz.INegocioGenero;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioLibro;
-import frgp.utn.edu.ar.negocioInterfaz.INegocioNacionalidad;
 
 public class App 
 {
     public static void main( String[] args )
     {
-    	INegocioGenero NegGen = new NegocioGenero();
-    	INegocioNacionalidad NegNac = new NegocioNacionalidad();
+    	    	
+    	INegocioLibro NegLib = new NegocioLibro();
+    	INegocioBiblioteca NegBib = new NegocioBiblioteca();
     	
-    	NegGen.cargarLista(); /// Carga lista de generos con valores definidos
-    	NegNac.cargarLista(); /// Carga lista de nacionalidad con valores definidos
+    	/// CARGA LISTA DE LIBROS Y REGISTROS DE BIBLIOTECA
+    	NegBib.cargarLista();
     	
-		/// CONTINUAR CREACION DE LIBROS
-    	Libro libro1 = new Libro(
-    			"9780132350884",
-    			"Clean Code Test Update", Date.valueOf("2008-01-01"), "Ingles", 464,
-    			"Un libro sobre programacion", 
-    			new Autor(
-    					"Robert C.",
-    					"Martin",
-    					NegNac.obtenerLista().get(0),
-    					"robert.martin@mail.com"
-    					)
-    			);
+    	List<Biblioteca> lista = NegBib.leerTodo(); /// CARGA TODOS LOS REGISTROS DE BIBLIOTECA EN UNA LISTA
+    	Iterator<Biblioteca> ite = lista.iterator();
     	
-    	libro1.getGeneros().add(NegGen.obtenerLista().get(0));
-    	libro1.getGeneros().add(NegGen.obtenerLista().get(1));
-    	
-        /*
-		INegocioLibro NegLib = new NegocioLibro();
-    	NegLib.cargarLista();y
-		*/
-    	
-    	INegocioBiblioteca NegLib = new NegocioBiblioteca();
-    	NegLib.cargarLista();
     	System.out.println("\n \n----------------- DATOS PREVIOS A UPDATE ---------------------------");
-    	System.out.println(NegLib.leerTodo().toString());
+    	while(ite.hasNext()) {
+    		System.out.println(ite.next().toString()); /// MUESTRA LA LISTA ORIGINAL POR CONSOLA
+    	}   
     	
+    	/// MODIFICACION DE REGISTROS
+    	Biblioteca modify1 = NegBib.leerUno(1);
+    	modify1.setEstado(EEstadoBiblioteca.PRESTADO); /// CAMBIO DE ESTADO
+    	modify1.setFechadealta( Date.valueOf("2023-05-06")); /// CAMBIO DE FECHA
     	
-    	Biblioteca biblio2 = new Biblioteca(libro1,"Prestado");
-    	biblio2.setIdBiblioteca(15);
+    	Biblioteca modify2 = NegBib.leerUno(5);
+    	modify2.setEstado(EEstadoBiblioteca.PRESTADO); /// CAMBIO DE ESTADO
+    	modify2.setFechadealta( Date.valueOf("2023-05-06")); /// CAMBIO DE FECHA
     	
-    	NegLib.modificarBiblioteca(biblio2);
+    	NegBib.modificarBiblioteca(modify1); /// MODIFICA REGISTRO
+    	NegBib.modificarBiblioteca(modify2); /// MODIFICA REGISTRO
+    	
+    	/// BORRADO DE REGISTROS   	
+    	NegBib.deleteBiblioteca(NegBib.leerUno(3)); /// BORRA BIBLIOTECA DE LA DB SIN BORRAR EL LIBRO
+    	NegLib.borrarLibro(NegLib.leerUno("9788491134510")); /// BORRA LIBRO DE LA DB Y BIBLIOTECAS ASOCIADAS
+    		
+    	lista = NegBib.leerTodo(); /// CARGA NUEVAMENTE TODOS LOS REGISTROS MODIFICADOS DE BIBLIOTECA EN UNA LISTA
+    	Collections.sort(lista); /// ORDENA LISTA POR ID DE BIBLIOTECA
+    	ite = lista.iterator();
+    	
     	System.out.println("\n\n ----------------- DATOS CON EL UPDATE ---------------------------");
-    	System.out.println(NegLib.leerTodo().toString());
+    	while(ite.hasNext()) {
+    		System.out.println(ite.next().toString()); /// MUESTRA LA LISTA MODIFICADA POR CONSOLA
+    	}   
     	
     }
 }
