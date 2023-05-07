@@ -3,27 +3,34 @@ package frgp.utn.edu.ar.entidad;
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="AUTORES")
 public class Autor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="ID_AUTOR")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAutor;
+	@Column(name="NOMBRE", nullable = false)
 	private String nombre;
+	@Column(name="APELLIDO", nullable = false)
 	private String apellido;
+	@Column(name="EMAIL")
 	private String email;
 	
 	@ManyToOne(cascade= {CascadeType.ALL})
-	@JoinColumn(name="id")
+	@JoinColumn(name="ID_NACIONALIDAD",nullable = true)
 	private Nacionalidad nacionalidad;
 	
 	public Autor() {}
