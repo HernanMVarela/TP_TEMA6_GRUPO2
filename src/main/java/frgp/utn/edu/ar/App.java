@@ -26,7 +26,7 @@ public class App
     	List<Biblioteca> lista = NegBib.leerTodo(); /// CARGA TODOS LOS REGISTROS DE BIBLIOTECA EN UNA LISTA
     	Iterator<Biblioteca> ite = lista.iterator();
     	
-    	System.out.println("\n \n----------------- DATOS PREVIOS A UPDATE ---------------------------");
+    	System.out.println("\n \n----------------- DATOS ORIGINALES ---------------------------");
     	while(ite.hasNext()) {
     		System.out.println(ite.next().toString()); /// MUESTRA LA LISTA ORIGINAL POR CONSOLA
     	}   
@@ -37,7 +37,7 @@ public class App
     	modify1.setFechadealta( Date.valueOf("2023-05-06")); /// CAMBIO DE FECHA
     	
     	Biblioteca modify2 = NegBib.leerUno(5);
-    	modify2.setEstado(EEstadoBiblioteca.PRESTADO); /// CAMBIO DE ESTADO
+    	modify2.setEstado(EEstadoBiblioteca.EN_BIBLIOTECA); /// CAMBIO DE ESTADO
     	modify2.setFechadealta( Date.valueOf("2023-05-06")); /// CAMBIO DE FECHA
     	
     	NegBib.modificarBiblioteca(modify1); /// MODIFICA REGISTRO
@@ -51,7 +51,7 @@ public class App
     	Collections.sort(lista); /// ORDENA LISTA POR ID DE BIBLIOTECA
     	ite = lista.iterator();
     	
-    	System.out.println("\n\n ----------------- DATOS CON EL UPDATE ---------------------------");
+    	System.out.println("\n\n ----------------- DATOS MODIFICADOS ---------------------------");
     	while(ite.hasNext()) {
     		System.out.println(ite.next().toString()); /// MUESTRA LA LISTA MODIFICADA POR CONSOLA
     	}   

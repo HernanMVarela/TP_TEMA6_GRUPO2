@@ -18,12 +18,11 @@ public class NegocioBiblioteca implements INegocioBiblioteca {
 		
 		NegLib.cargarLista();
 		 	
-    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9786075387611"),EEstadoBiblioteca.EN_BIBLIOTECA, Date.valueOf("2023-02-02"))); /// SE MODIFICA
-    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9789504981015"),EEstadoBiblioteca.EN_BIBLIOTECA, Date.valueOf("2018-03-03"))); /// SE MODIFICA 
-    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9789504981015"),EEstadoBiblioteca.EN_BIBLIOTECA, Date.valueOf("2017-01-01"))); /// SE BORRA REGISTRO
+    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9786075387611"),EEstadoBiblioteca.EN_BIBLIOTECA, Date.valueOf("2023-02-02"))); /// SE MODIFICA EN MAIN
+    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9789504981015"),EEstadoBiblioteca.EN_BIBLIOTECA, Date.valueOf("2018-03-03"))); /// SE MODIFICA EN MAIN
+    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9789504981015"),EEstadoBiblioteca.EN_BIBLIOTECA, Date.valueOf("2017-01-01"))); /// SE BORRA REGISTRO EN MAIN
     	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9788491134510"),EEstadoBiblioteca.PRESTADO, Date.valueOf("2020-03-03"))); /// QUEDA IGUAL
-    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9788417347741"),EEstadoBiblioteca.PRESTADO, Date.valueOf("2023-02-02"))); /// SE BORRA LIBRO
-   
+    	agegarBiblioteca(new Biblioteca(NegLib.leerUno("9788417347741"),EEstadoBiblioteca.PRESTADO, Date.valueOf("2023-02-02"))); /// SE BORRA LIBRO EN MAIN
 	}
 
 	@Override
