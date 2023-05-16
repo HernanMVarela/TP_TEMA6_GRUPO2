@@ -55,7 +55,7 @@ public class NegocioLibro implements INegocioLibro {
     	libro2.getGeneros().add(NegGen.getGenero("Humanidad"));
 		
 		Libro libro3 = new Libro(
-    			"9788491134510",
+    			"12345",
     			"Fundamentos de Enfermería", Date.valueOf("2019-01-01"), "Español", 1384,
     			"Un libro sobre medicina", 
     			new Autor(
