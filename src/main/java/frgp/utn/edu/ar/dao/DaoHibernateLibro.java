@@ -95,14 +95,14 @@ public class DaoHibernateLibro {
 
 			// Mostrar el libro que tenga el mayor número de ISBN
 
-			Libro libro = (Libro)session.createQuery("SELECT l FROM Libro l "
+			String Lib = (String)session.createQuery("SELECT l.ISBN FROM Libro l "
 												   + "WHERE l.ISBN = (SELECT MAX(l.ISBN) FROM Libro l)")
 										.uniqueResult();
 
 			session.getTransaction().commit();
 			ch.cerrarSession();
 
-			return libro.getISBN();
+			return Lib;
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			return null;
