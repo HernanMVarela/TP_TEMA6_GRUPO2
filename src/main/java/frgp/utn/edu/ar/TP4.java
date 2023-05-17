@@ -9,7 +9,10 @@ import frgp.utn.edu.ar.dao.ConfigHibernate;
 import frgp.utn.edu.ar.entidad.Biblioteca;
 import frgp.utn.edu.ar.entidad.Genero;
 import frgp.utn.edu.ar.entidad.Libro;
+import frgp.utn.edu.ar.entidad.Autor;
+import frgp.utn.edu.ar.negocio.NegocioAutor;
 import frgp.utn.edu.ar.negocio.NegocioBiblioteca;
+import frgp.utn.edu.ar.negocioInterfaz.INegocioAutor;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioBiblioteca;
 
 public class TP4 {
@@ -47,14 +50,23 @@ public class TP4 {
 			System.out.println("Ningún libro prestado.\n");
 		}
 		
+		System.out.println("\n---------------------------------------------------------------------------\n");
+		System.out.println("                                    PUNTO 3");
+		System.out.println("     Mostrar todos los autores que sean de nacionalidad Argentina.\n");
+		
+		INegocioAutor NegAut = new NegocioAutor();
+		List<Autor> listaAutor = NegAut.punto_3();
+		
+        
+        System.out.println("\n\t\t ------------ PUNTO 4 --------------------\n" );
+
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
 
         Libro libro = (Libro) session.createQuery("SELECT l FROM Libro l LEFT JOIN FETCH l.generos WHERE l.ISBN = :isbn")
                 .setParameter("isbn", "12345")
                 .uniqueResult();
-        
-        System.out.println("\n\t\t ------------ PUNTO 4 --------------------\n" );
+
         if (libro != null) {
 
             System.out.println("----- Información del Libro -----");
