@@ -2,7 +2,6 @@ package frgp.utn.edu.ar;
 
 import java.util.List;
 
-
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.dao.ConfigHibernate;
@@ -19,7 +18,6 @@ public class TP4 {
 
 	public static void main(String[] args) {
 		
-		
 		/*
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
@@ -31,8 +29,8 @@ public class TP4 {
 		}
 		
 		ch.cerrarSession();
-		
 		*/
+		
 		
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("                                    PUNTO 2");
@@ -50,12 +48,21 @@ public class TP4 {
 			System.out.println("Ningún libro prestado.\n");
 		}
 		
+		
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("                                    PUNTO 3");
 		System.out.println("     Mostrar todos los autores que sean de nacionalidad Argentina.\n");
 		
 		INegocioAutor NegAut = new NegocioAutor();
 		List<Autor> listaAutor = NegAut.punto_3();
+
+		if (listaAutor != null) {
+			for (Autor autor : listaAutor) {
+				System.out.println(autor.toString());
+			}
+		}else {
+			System.out.println("Ningún autor argentino.\n");
+		}
 		
         
         System.out.println("\n\t\t ------------ PUNTO 4 --------------------\n" );
@@ -87,6 +94,7 @@ public class TP4 {
         }
 
 		ch.cerrarSession();
+		
 	}
 
 }

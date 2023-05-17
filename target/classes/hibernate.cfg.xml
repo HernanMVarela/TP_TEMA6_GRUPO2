@@ -4,19 +4,19 @@
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.password">root</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/BDHibernate?createDatabaseIfNotExist=true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hbm2ddl.auto">update</property>
-        <property name="show_sql">true</property>
+        <property name="show_sql">false</property>
         
         <mapping class="frgp.utn.edu.ar.entidad.Autor"/>
         <mapping class="frgp.utn.edu.ar.entidad.Genero"/>
         <mapping class="frgp.utn.edu.ar.entidad.Nacionalidad"/>
         <mapping class="frgp.utn.edu.ar.entidad.Libro"/>
-        <mapping class="frgp.utn.edu.ar.entidad.Biblioteca"/>
+        <mapping class="frgp.utn.edu.ar.entidad.Biblioteca"/>        
         
     </session-factory>
 </hibernate-configuration>

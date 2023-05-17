@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.entidad.Autor;
+import frgp.utn.edu.ar.entidad.Nacionalidad;
 
 public class DaoHibernateAutor {
 	
@@ -16,12 +17,17 @@ public class DaoHibernateAutor {
 		
 			session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			
-			
-			List<Autor> autores = new ArrayList<Autor>();
-			
-			
-			return autores;
+
+			List<Autor> fullList = (List<Autor>)session.createQuery("SELECT a FROM Autor "
+																  + "a LEFT JOIN a.nacionalidad n "
+																  + "WHERE n.descripcion = :nombrePais")
+														.setParameter("nombrePais", "Argentina")
+														.list();
+
+			session.getTransaction().commit();
+			ch.cerrarSession();
+
+			return fullList;
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			return null;
