@@ -84,4 +84,28 @@ public class DaoHibernateLibro {
 			System.out.println(e.toString());
 		}
 	}
+
+	public static Libro punto_5() {
+		try {
+			ConfigHibernate ch = new ConfigHibernate();
+			Session session = ch.abrirConexion();
+		
+			session.beginTransaction();
+			@SuppressWarnings("unchecked")
+
+			// Mostrar el libro que tenga el mayor número de ISBN
+
+			Libro libro = (Libro)session.createQuery("SELECT l FROM Libro l "
+												   + "WHERE l.ISBN = (SELECT MAX(l.ISBN) FROM Libro l)")
+										.uniqueResult();
+
+			session.getTransaction().commit();
+			ch.cerrarSession();
+
+			return libro;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+	}
 }

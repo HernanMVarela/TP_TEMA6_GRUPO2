@@ -11,8 +11,10 @@ import frgp.utn.edu.ar.entidad.Libro;
 import frgp.utn.edu.ar.entidad.Autor;
 import frgp.utn.edu.ar.negocio.NegocioAutor;
 import frgp.utn.edu.ar.negocio.NegocioBiblioteca;
+import frgp.utn.edu.ar.negocio.NegocioLibro;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioAutor;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioBiblioteca;
+import frgp.utn.edu.ar.negocioInterfaz.INegocioLibro;
 
 public class TP4 {
 
@@ -93,8 +95,20 @@ public class TP4 {
             System.out.println("No se encontró ningún libro con el ISBN buscado.");
         }
 
-		ch.cerrarSession();
+		ch.cerrarSession();	
 		
+		System.out.println("\n---------------------------------------------------------------------------\n");
+		System.out.println("                                    PUNTO 5");
+		System.out.println("     Mostrar el libro que tenga el mayor número de ISBN.\n");
+		
+		INegocioLibro NegLib = new NegocioLibro();
+		Libro libMaxISBN = NegLib.punto_5();
+
+		if (libMaxISBN != null) {
+			System.out.println(libMaxISBN.toString());
+		}else {
+			System.out.println("Error.\n");
+		}
 	}
 
 }

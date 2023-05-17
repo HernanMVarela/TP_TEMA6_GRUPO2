@@ -1,12 +1,10 @@
 package frgp.utn.edu.ar.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.entidad.Autor;
-import frgp.utn.edu.ar.entidad.Nacionalidad;
 
 public class DaoHibernateAutor {
 	
