@@ -11,6 +11,13 @@ import frgp.utn.edu.ar.negocioInterfaz.INegocioLibro;
 
 public class NegocioBiblioteca implements INegocioBiblioteca {
 
+	
+	@Override
+	public List<Biblioteca> punto_2() {
+		List<Biblioteca> listaBiblio = DaoHibernateBiblioteca.punto_2();
+		return listaBiblio;
+	}
+	
 	@Override
 	public void cargarLista() {    
 		

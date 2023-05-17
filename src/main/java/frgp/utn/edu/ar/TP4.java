@@ -1,18 +1,16 @@
 package frgp.utn.edu.ar;
 
-import java.sql.Date;
 import java.util.List;
 
 
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.dao.ConfigHibernate;
-import frgp.utn.edu.ar.dao.DaoHibernateBiblioteca;
 import frgp.utn.edu.ar.entidad.Biblioteca;
-import frgp.utn.edu.ar.entidad.EEstadoBiblioteca;
 import frgp.utn.edu.ar.entidad.Genero;
 import frgp.utn.edu.ar.entidad.Libro;
-import frgp.utn.edu.ar.negocio.NegocioLibro;
+import frgp.utn.edu.ar.negocio.NegocioBiblioteca;
+import frgp.utn.edu.ar.negocioInterfaz.INegocioBiblioteca;
 
 public class TP4 {
 
@@ -32,15 +30,22 @@ public class TP4 {
 		ch.cerrarSession();
 		
 		*/
-		/*	
-		List<Biblioteca> lista = DaoHibernateBiblioteca.punto_2();
 		
-		for (Biblioteca biblioteca : lista) {
-			System.out.println(" ID: " + biblioteca.getIdBiblioteca() + 
-					   " | Fecha: " + biblioteca.getFechadealta().toString() + 
-					   " | Estado: " + biblioteca.getEstado());
-		}*/
-
+		System.out.println("\n---------------------------------------------------------------------------\n");
+		System.out.println("                                    PUNTO 2");
+		System.out.println("    Mostrar todos los libros de la biblioteca que se encuentran prestados.\n");
+		
+		INegocioBiblioteca NegBib = new NegocioBiblioteca();
+		List<Biblioteca> lista = NegBib.punto_2();
+		if (lista != null) {
+			for (Biblioteca biblioteca : lista) {
+				System.out.println(" ID: " + biblioteca.getIdBiblioteca() + 
+						   " | Fecha: " + biblioteca.getFechadealta().toString() + 
+						   " | Estado: " + biblioteca.getEstado());
+			}
+		}else {
+			System.out.println("Ningún libro prestado.\n");
+		}
 		
 		ConfigHibernate ch = new ConfigHibernate();
 		Session session = ch.abrirConexion();
