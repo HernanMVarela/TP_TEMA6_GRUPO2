@@ -12,6 +12,6 @@ public interface INegocioLibro {
 	public void borrarLibro(Libro lib);
 	public Libro leerUno(String ISBN);
 	public List<Libro> leerTodo();
-	public Libro punto_5();	
+	public String MaxISBN();	
 
 }

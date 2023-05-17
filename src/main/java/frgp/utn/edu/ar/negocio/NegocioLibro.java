@@ -160,8 +160,8 @@ public class NegocioLibro implements INegocioLibro {
 		return DaoHibernateLibro.ReadAll(); /// Lee todos los registros de la tabla libros
 	}
 
-	public Libro punto_5() {
-		Libro libro = DaoHibernateLibro.punto_5();
+	public String MaxISBN() {
+		String libro = DaoHibernateLibro.MaxISBN();
 		return libro;
 	}
 

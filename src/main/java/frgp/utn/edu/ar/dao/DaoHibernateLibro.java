@@ -85,7 +85,7 @@ public class DaoHibernateLibro {
 		}
 	}
 
-	public static Libro punto_5() {
+	public static String MaxISBN() {
 		try {
 			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();
@@ -102,7 +102,7 @@ public class DaoHibernateLibro {
 			session.getTransaction().commit();
 			ch.cerrarSession();
 
-			return libro;
+			return libro.getISBN();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			return null;
