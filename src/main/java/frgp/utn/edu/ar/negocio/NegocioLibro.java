@@ -15,6 +15,8 @@ import frgp.utn.edu.ar.negocioInterfaz.INegocioLibro;
 import frgp.utn.edu.ar.negocioInterfaz.INegocioNacionalidad;
 
 public class NegocioLibro implements INegocioLibro {
+	
+
 
 	@Override
 	public void cargarLista() {
@@ -164,5 +166,11 @@ public class NegocioLibro implements INegocioLibro {
 		String libro = DaoHibernateLibro.MaxISBN();
 		return libro;
 	}
+	
+	public List<String> punto_6() {
+		List<String> listaLibro = DaoHibernateLibro.punto_6();
+		return listaLibro;
+	}
+	
 
 }

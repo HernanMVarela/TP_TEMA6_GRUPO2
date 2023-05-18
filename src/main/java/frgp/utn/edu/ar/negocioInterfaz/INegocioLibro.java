@@ -13,5 +13,6 @@ public interface INegocioLibro {
 	public Libro leerUno(String ISBN);
 	public List<Libro> leerTodo();
 	public String MaxISBN();	
+	public List<String>  punto_6();	
 
 }

@@ -22,33 +22,46 @@ public class TP4 {
 	public static void main(String[] args) {
 		
 		ConfigHibernate ch1 = new ConfigHibernate();
-		Session session1 = ch1.abrirConexion();
+		Session session = ch1.abrirConexion();
 		
+		puntoUno(session);
+		puntoDos();
+		puntoTres();
+		puntoCuatro(session);
+		puntoCinco();
+		puntoSeis();
+		ch1.cerrarSession();		
+		
+	}
+	
+	private static void puntoUno(Session session) {
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("\tPUNTO 1\n" );
 		System.out.println("Mostrar todos los libros ordenados según ISBN de mayor a menor.\n");
 
-		List<Libro> listaLibros = (List<Libro>) session1.createQuery("FROM Libro ORDER BY ISBN DESC").list();
+		List<Libro> listaLibros = (List<Libro>) session.createQuery("FROM Libro ORDER BY ISBN DESC").list();
 
-        for (Libro lib : listaLibros) {
+	    for (Libro lib : listaLibros) {
 
-        	System.out.println("\n ----- Información del Libro -----");
-            System.out.println("ISBN: " + lib.getISBN());
-            System.out.println("Título: " + lib.getTitulo());
-            System.out.println("Fecha de lanzamiento: " + lib.getFechaLanzamiento());
-            System.out.println("Idioma: " + lib.getIdioma());
-            System.out.println("Cantidad de páginas: " + lib.getCantPaginas());
-            System.out.println("Autor: " + lib.getAutor().getId() + " - " + lib.getAutor().getNombre() + " " + lib.getAutor().getApellido());
-            System.out.println("Descripción: " + lib.getDescripcion());
+	    	System.out.println("\n ----- Información del Libro -----");
+	        System.out.println("ISBN: " + lib.getISBN());
+	        System.out.println("Título: " + lib.getTitulo());
+	        System.out.println("Fecha de lanzamiento: " + lib.getFechaLanzamiento());
+	        System.out.println("Idioma: " + lib.getIdioma());
+	        System.out.println("Cantidad de páginas: " + lib.getCantPaginas());
+	        System.out.println("Autor: " + lib.getAutor().getId() + " - " + lib.getAutor().getNombre() + " " + lib.getAutor().getApellido());
+	        System.out.println("Descripción: " + lib.getDescripcion());
 
-            System.out.println("Géneros:");
-            for (Genero genero : lib.getGeneros()) {
-                System.out.println("ID Genero: " + genero.getId_genero() + " | Descripción: " + genero.getNombre());
-            }
-        }
+	        System.out.println("Géneros:");
+	        for (Genero genero : lib.getGeneros()) {
+	            System.out.println("ID Genero: " + genero.getId_genero() + " | Descripción: " + genero.getNombre());
+	        }
+	    }
 
-		ch1.cerrarSession();		
 		
+	}
+	private static void puntoDos() {
+
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("\tPUNTO 2\n" );
 		System.out.println("Mostrar todos los libros de la biblioteca que se encuentran prestados.\n");
@@ -65,6 +78,10 @@ public class TP4 {
 			System.out.println("Ningún libro prestado.\n");
 		}
 		
+	}
+	
+	private static void puntoTres() {
+
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("\tPUNTO 3\n" );
 		System.out.println("Mostrar todos los autores que sean de nacionalidad Argentina.\n");
@@ -80,13 +97,16 @@ public class TP4 {
 			System.out.println("Ningún autor argentino.\n");
 		}
 		
-        
+	}
+
+	
+	private static void puntoCuatro(Session session) {
+
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("\tPUNTO 4\n" );
 		System.out.println("Mostrar el libro con ISBN 12345 junto con todos sus géneros.\n");
 
-		ConfigHibernate ch = new ConfigHibernate();
-		Session session = ch.abrirConexion();
+		
 
         Libro libro = (Libro) session.createQuery("SELECT l FROM Libro l LEFT JOIN FETCH l.generos WHERE l.ISBN = :isbn")
                 .setParameter("isbn", "12345")
@@ -101,8 +121,10 @@ public class TP4 {
             System.out.println("No se encontró ningún libro con el ISBN buscado.");
         }
 
-		ch.cerrarSession();	
+
 		
+	}
+	private static void puntoCinco() {
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("\tPUNTO 5\n" );
 		System.out.println("Mostrar el libro que tenga el mayor número de ISBN.\n");
@@ -117,33 +139,25 @@ public class TP4 {
 			System.out.println("Error.\n");
 		}
 		
-		
+
+	}
+	private static void puntoSeis() {
 		System.out.println("\n---------------------------------------------------------------------------\n");
 		System.out.println("                                    PUNTO 6");
 		System.out.println("         Mostrar la cantidad de libros que existen para cada género.\n");
 		
-		ConfigHibernate ch3 = new ConfigHibernate();
-		Session session3 = ch3.abrirConexion();
+		INegocioLibro NegLib = new NegocioLibro();
+		List<String> lista = NegLib.punto_6();
 		
-		session3.beginTransaction();
-		
-		@SuppressWarnings("unchecked")
-		List<Object[]> lista3 = (List<Object[]>)session3.createQuery("SELECT G.idGenero, G.nombre, COUNT(L.ISBN) "
-																 + "FROM Libro L "
-																 + "INNER JOIN L.generos G "
-																 + "GROUP BY G.idGenero, G.nombre").list();
-		ch3.cerrarSession();
-		
-		for (Object[] objects : lista3) {
-			System.out.println(objects[0].toString() + " - " + objects[1].toString() + ": " + objects[2].toString());
+		if (lista != null) {
+			for (String resultado : lista) {
+				System.out.println(resultado);
+			}
+		} else {
+			System.out.println("Ningún libro prestado.\n");
 		}
-		
-	try {	
-	} catch (Exception e) {
-		System.out.println(e.toString());
-
 	}
-		
-	}
-
 }
+
+
+

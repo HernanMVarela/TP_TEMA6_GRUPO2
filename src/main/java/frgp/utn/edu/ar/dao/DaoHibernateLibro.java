@@ -1,10 +1,13 @@
 package frgp.utn.edu.ar.dao;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 
+import frgp.utn.edu.ar.entidad.Biblioteca;
+import frgp.utn.edu.ar.entidad.EEstadoBiblioteca;
 import frgp.utn.edu.ar.entidad.Libro;
 
 public class DaoHibernateLibro {
@@ -104,6 +107,37 @@ public class DaoHibernateLibro {
 			ch.cerrarSession();
 
 			return Lib;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+	}
+	public static List<String> punto_6() {
+		try {
+			ConfigHibernate ch = new ConfigHibernate();
+			Session session = ch.abrirConexion();
+
+			session.beginTransaction();
+
+			@SuppressWarnings("unchecked")
+			List<Object[]> fullList = (List<Object[]>) session.createQuery("SELECT G.idGenero, G.nombre, COUNT(L.ISBN) "
+					+ "FROM Libro L " + "INNER JOIN L.generos G " + "GROUP BY G.idGenero, G.nombre").list();
+
+			session.getTransaction().commit();
+			ch.cerrarSession();
+
+			List<String> resultados = new ArrayList<>();
+
+			for (Object[] objects : fullList) {
+				Integer idGenero = (Integer) objects[0];
+				String nombreGenero = (String) objects[1];
+				Long conteo = (Long) objects[2];
+
+				String resultado = idGenero + " - " + nombreGenero + ": " + conteo;
+				resultados.add(resultado);
+			}
+
+			return resultados;
 		} catch (Exception e) {
 			System.out.println(e.toString());
 			return null;
