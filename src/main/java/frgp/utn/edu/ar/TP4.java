@@ -94,19 +94,9 @@ public class TP4 {
 
         if (libro != null) {
 
-            System.out.println("----- Información del Libro -----");
-            System.out.println("ISBN: " + libro.getISBN());
-            System.out.println("Título: " + libro.getTitulo());
-            System.out.println("Fecha de lanzamiento: " + libro.getFechaLanzamiento());
-            System.out.println("Idioma: " + libro.getIdioma());
-            System.out.println("Cantidad de páginas: " + libro.getCantPaginas());
-            System.out.println("Autor: " + libro.getAutor().getId() + " - " + libro.getAutor().getNombre() + " " + libro.getAutor().getApellido());
-            System.out.println("Descripción: " + libro.getDescripcion());
-
-            System.out.println("Géneros:");
-            for (Genero genero : libro.getGeneros()) {
-                System.out.println("ID Genero: " + genero.getId_genero() + " | Descripción: " + genero.getNombre());
-            }
+            System.out.println("\t\t----- Información del Libro -----");
+            System.out.println( libro.toString());
+           
         } else {
             System.out.println("No se encontró ningún libro con el ISBN buscado.");
         }
@@ -132,7 +122,27 @@ public class TP4 {
 		System.out.println("                                    PUNTO 6");
 		System.out.println("         Mostrar la cantidad de libros que existen para cada género.\n");
 		
-		DaoHibernateLibro.punto_6();
+		ConfigHibernate ch3 = new ConfigHibernate();
+		Session session3 = ch3.abrirConexion();
+		
+		session3.beginTransaction();
+		
+		@SuppressWarnings("unchecked")
+		List<Object[]> lista3 = (List<Object[]>)session3.createQuery("SELECT G.idGenero, G.nombre, COUNT(L.ISBN) "
+																 + "FROM Libro L "
+																 + "INNER JOIN L.generos G "
+																 + "GROUP BY G.idGenero, G.nombre").list();
+		ch3.cerrarSession();
+		
+		for (Object[] objects : lista3) {
+			System.out.println(objects[0].toString() + " - " + objects[1].toString() + ": " + objects[2].toString());
+		}
+		
+	try {	
+	} catch (Exception e) {
+		System.out.println(e.toString());
+
+	}
 		
 	}
 

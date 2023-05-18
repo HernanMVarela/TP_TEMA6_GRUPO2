@@ -110,28 +110,5 @@ public class DaoHibernateLibro {
 		}
 	}
 	
-	public static void punto_6() {
-		
-		ConfigHibernate ch = new ConfigHibernate();
-		Session session = ch.abrirConexion();
-		
-		session.beginTransaction();
-		
-		@SuppressWarnings("unchecked")
-		List<Object[]> lista = (List<Object[]>)session.createQuery("SELECT G.idGenero, G.nombre, COUNT(L.ISBN) "
-																 + "FROM Libro L "
-																 + "INNER JOIN L.generos G "
-																 + "GROUP BY G.idGenero, G.nombre").list();
-		ch.cerrarSession();
-		
-		for (Object[] objects : lista) {
-			System.out.println(objects[0].toString() + " - " + objects[1].toString() + ": " + objects[2].toString());
-		}
-		
-	try {	
-	} catch (Exception e) {
-		System.out.println(e.toString());
 
-	}
-}
 }
