@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import frgp.utn.edu.ar.dao.ConfigHibernate;
+import frgp.utn.edu.ar.dao.DaoHibernateLibro;
 import frgp.utn.edu.ar.entidad.Biblioteca;
 import frgp.utn.edu.ar.entidad.Genero;
 import frgp.utn.edu.ar.entidad.Libro;
@@ -125,6 +126,14 @@ public class TP4 {
 		}else {
 			System.out.println("Error.\n");
 		}
+		
+		
+		System.out.println("\n---------------------------------------------------------------------------\n");
+		System.out.println("                                    PUNTO 6");
+		System.out.println("         Mostrar la cantidad de libros que existen para cada género.\n");
+		
+		DaoHibernateLibro.punto_6();
+		
 	}
 
 }
