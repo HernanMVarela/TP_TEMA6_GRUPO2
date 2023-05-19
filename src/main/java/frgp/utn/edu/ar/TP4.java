@@ -153,9 +153,7 @@ public class TP4 {
 			for (String resultado : lista) {
 				System.out.println(resultado);
 			}
-		} else {
-			System.out.println("Ningún libro prestado.\n");
-		}
+		} 
 	}
 }
 
