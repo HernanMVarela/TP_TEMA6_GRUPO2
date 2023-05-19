@@ -16,8 +16,6 @@ import frgp.utn.edu.ar.negocioInterfaz.INegocioNacionalidad;
 
 public class NegocioLibro implements INegocioLibro {
 	
-
-
 	@Override
 	public void cargarLista() {
 		INegocioGenero NegGen = new NegocioGenero();
@@ -154,23 +152,35 @@ public class NegocioLibro implements INegocioLibro {
 		DaoHibernateLibro.DeleteLibro(lib);; /// Remueve de la base de datos el libro indicado		
 	}
 
+	@Override
 	public Libro leerUno(String ISBN) {
 		return DaoHibernateLibro.ReadOne(ISBN); /// Lee un registro de la tabla libros
 	}
 	
+	@Override
 	public List<Libro> leerTodo(){		
 		return DaoHibernateLibro.ReadAll(); /// Lee todos los registros de la tabla libros
 	}
+	
+	@Override
+	public List<Libro> punto_1() {
+		return DaoHibernateLibro.punto_1();
+	}
+	
+	@Override
+	public Libro punto_4(String ISBN) {
+		return DaoHibernateLibro.punto_4(ISBN);
+	}
 
-	public String MaxISBN() {
-		String libro = DaoHibernateLibro.MaxISBN();
+	@Override
+	public String punto_5() {
+		String libro = DaoHibernateLibro.punto_5();
 		return libro;
 	}
 	
+	@Override
 	public List<String> punto_6() {
 		List<String> listaLibro = DaoHibernateLibro.punto_6();
 		return listaLibro;
 	}
-	
-
 }

@@ -73,13 +73,14 @@ public class Libro implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "\n\tISBN: " + ISBN + " | Titulo: " + titulo + "\n\t" +"Descripcion: " + descripcion +" | Lanzamiento: " + fechaLanzamiento + "\n\t" +"Idioma: "
-				+ idioma + " | Páginas: " + cantPaginas + " | Generos: " + listaDeGeneros() +"\n\t" + "Autor: " + autor.toString();
+		return "\n ISBN: " + ISBN + " | Titulo: " + titulo + "\n Descripcion: " + descripcion +" | Lanzamiento: " + fechaLanzamiento + "\n Idioma: "
+				+ idioma + " | Páginas: " + cantPaginas + " | Generos: " + listaDeGeneros() +"\n Autor: " + autor.toString();
 	}
 	
 	public void getGenerosTP4() {
 		listaDeGeneros();
 	}
+	
 	 private String listaDeGeneros() {
 		String listaGeneros = new String();
 		for (Genero genero : generos) {

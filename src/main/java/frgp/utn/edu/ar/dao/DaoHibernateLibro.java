@@ -1,16 +1,53 @@
 package frgp.utn.edu.ar.dao;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 
-import frgp.utn.edu.ar.entidad.Biblioteca;
-import frgp.utn.edu.ar.entidad.EEstadoBiblioteca;
 import frgp.utn.edu.ar.entidad.Libro;
 
 public class DaoHibernateLibro {
+	
+	public static List<Libro> punto_1() {		
+		try {
+			ConfigHibernate ch = new ConfigHibernate();
+			Session session = ch.abrirConexion();
+		
+			session.beginTransaction();
+			@SuppressWarnings("unchecked")
+			List<Libro> listaLibros = (List<Libro>)session.createQuery("FROM Libro ORDER BY ISBN DESC").list();
+			
+			session.getTransaction().commit();
+			ch.cerrarSession();
+
+			return listaLibros;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+		
+	}
+	
+	public static Libro punto_4(String ISBN) {		
+		try {
+			ConfigHibernate ch = new ConfigHibernate();
+			Session session = ch.abrirConexion();
+		
+			session.beginTransaction();
+			
+			Libro libro = (Libro)session.createQuery("SELECT l FROM Libro l LEFT JOIN FETCH l.generos WHERE l.ISBN = :isbn").setParameter("isbn", ISBN).uniqueResult();
+			session.getTransaction().commit();
+			ch.cerrarSession();
+
+			return libro;
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+		
+	}
+	
 	public static void AddLibro(Libro libro) {
 		try {
 			ConfigHibernate ch = new ConfigHibernate();
@@ -89,13 +126,12 @@ public class DaoHibernateLibro {
 		}
 	}
 
-	public static String MaxISBN() {
+	public static String punto_5() {
 		try {
 			ConfigHibernate ch = new ConfigHibernate();
 			Session session = ch.abrirConexion();
 		
 			session.beginTransaction();
-			@SuppressWarnings("unchecked")
 
 			// Mostrar el libro que tenga el mayor número de ISBN
 

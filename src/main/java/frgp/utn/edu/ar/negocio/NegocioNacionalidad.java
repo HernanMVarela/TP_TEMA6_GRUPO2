@@ -10,6 +10,7 @@ import frgp.utn.edu.ar.negocioInterfaz.INegocioNacionalidad;
 public class NegocioNacionalidad implements INegocioNacionalidad {
 private List<Nacionalidad> lista = new ArrayList<Nacionalidad>();
 	
+	@Override
 	public void cargarLista() {
 		lista.add(new Nacionalidad("Argentina"));
 		lista.add(new Nacionalidad("Uruguay"));
@@ -17,6 +18,7 @@ private List<Nacionalidad> lista = new ArrayList<Nacionalidad>();
     	lista.add(new Nacionalidad("Estados Unidos"));
 	}
 	
+	@Override
 	public List<Nacionalidad> obtenerLista() {
 		if(lista.size()>0) {
 			return lista;
@@ -25,6 +27,7 @@ private List<Nacionalidad> lista = new ArrayList<Nacionalidad>();
 		}
 	}
 	
+	@Override
 	public Nacionalidad getNacionalidad(String Nac) {
 		Iterator<Nacionalidad> ite = lista.iterator();
 		

@@ -10,6 +10,7 @@ import frgp.utn.edu.ar.negocioInterfaz.INegocioGenero;
 public class NegocioGenero implements INegocioGenero{
 	private List<Genero> lista = new ArrayList<Genero>();
 	
+	@Override
 	public void cargarLista() {
 		lista.add(new Genero("Programacion"));
 		lista.add(new Genero("Computacion"));
@@ -19,6 +20,7 @@ public class NegocioGenero implements INegocioGenero{
 		lista.add(new Genero("Ficción"));
 	}
 	
+	@Override
 	public List<Genero> obtenerLista() {
 		if(lista.size()>0) {
 			return lista;
